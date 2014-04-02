@@ -1,0 +1,59 @@
+making something that's useful to historians
+
+making something that's more accessible to more general audience
+    very visual
+    basic/summarised information that high-school/midle-school kids could use
+        Berkeley retirees
+    visually appealing
+    highlights the archive enough to inspire understanding of what archives are
+    use pop-up archives' wealth of different media types
+    middle school/high school rule of thumb
+        kids remember 10% of what they hear
+        20% of what they see
+        % increases logarithmically when you combine see/hear/write
+        writing increases learning up to 75%-ish
+
+timeline idea
+    link things with respect to time
+    the API gives us collections
+        ex: "all Daily Cal articles 1963-1967, involving FSM"
+
+general ideas - these are like links at the top of a page
+    people
+        all people?
+        top 10 people?
+        randomly assign images, sound, document, etc at request time
+        keep information fresh on every page
+        perhaps pull Wikipedia information
+    places
+    groups
+    events
+        specifically, first occurrences
+
+graphs
+    lexical analysis of documents
+        mentions of the Free Speech movement over time in articles, etc
+    let the user define searches/graphs
+    overlay main events of the movemement over graphs like this
+    economics
+    demographics/racial inequality
+
+crossover. Black Panther movement over FSM
+    common names, common dates between the two terms
+
+wommen of the FSM
+    terribly underrepresented in the currently-available materials
+    Berkeley has been co-ed from the start, unlike nearly all top-level schools
+
+events are effected by the events prior, and also effect the events following
+    ex: after this fiasco, what was the turnover in the administration?
+    basically, we don't want to focus PURELY on dates at which the FSM was happening
+    involve data from around the bay area in this date range
+
+look for pre-made data sets involving FSM stuff
+
+questions
+    what's going on with immigrants/workforce?
+    what are the other movements going on at the time?
+    the public's conscience was overburdened
+        everyone asking for everything; we learn to shrug
