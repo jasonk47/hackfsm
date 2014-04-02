@@ -11,3 +11,40 @@
  *= require_self
  *= require_tree .
  */
+
+#header {
+  height: 70px;
+  margin: 0 auto 0 auto;
+  text-align: center;
+}
+
+#header .logo {
+  float: left;
+}
+
+#header .logo img {
+  height: 60px;
+  margin: 10px 0 0 0;
+}
+
+#header ul {
+  display: inline-block;
+  float: right;
+  margin: 20px 0 0 40px;
+}
+
+#header ul li {
+  float: left;
+  list-style: none;
+}
+
+#header ul li a {
+  display: block;
+  text-transform: uppercase;
+  font-family: "Open Sans Condensed";
+  font-weight: 700;
+  padding: 10px;
+  margin: 0 10px;
+  color: #000;
+  font-size: 2em;
+}
