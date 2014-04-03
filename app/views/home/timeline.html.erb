@@ -1,0 +1,25 @@
+<% content_for :title do %>
+Timeline
+<% end %>
+
+<% content_for :sidebar do %>
+<% # TODO replace with real sidebar %>
+<div id="sidebar">
+  <h2>Layers</h2>
+  <ul>
+    <li>
+      <a data-toggle="collapse" href="#tg-events">Events</a>
+      <ul id="tg-events" class="collapse">
+        <li><a href="#">Protests</a></li>
+        <li><a href="#">Arrests</a></li>
+      </ul>
+    </li>
+    <li>
+      <a data-toggle="collapse" href="#tg-demographics">Demographics</a>
+      <ul id="tg-demographics" class="collapse">
+        <li><a href="#">Race</a></li>
+        <li><a href="#">Gender</a></li>
+      </ul>
+    </li>
+</div>
+<% end %>

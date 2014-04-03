@@ -11,3 +11,68 @@
   background-image: url('./bg.jpg');
   background-size: cover;
 }
+
+#welcome-text {
+  color: #FFF;
+  font-size: 3.5em;
+  margin-top: 40px;
+}
+
+#welcome-button {
+  margin-top: 30px;
+}
+
+#sidebar {
+  width: 200px;
+  background-color: #323232;
+  color: #AAA;
+  position: fixed;
+  top: 80px;
+  bottom: 0;
+  left: 0;
+}
+
+#sidebar h2 {
+  color: #FFF;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#sidebar a {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  color: #AAA;
+}
+
+#sidebar a:hover {
+  color: #FFF;
+  background-color: #555;
+}
+
+#sidebar > ul > li > a {
+  background-color: #1f87e0;
+  color: #FFF;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-bottom: 1px;
+}
+
+#sidebar > ul > li:last-child > a {
+}
+
+#sidebar > ul > li > a:hover {
+  text-decoration: none;
+}
+

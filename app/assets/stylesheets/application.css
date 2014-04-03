@@ -12,10 +12,15 @@
  *= require_tree .
  */
 
+#timeline-body {
+  background-color: #EEE;
+}
+
 #header {
-  height: 70px;
+  height: 80px;
   margin: 0 auto 0 auto;
   text-align: center;
+  background-color: #FFF;
 }
 
 #header .logo {

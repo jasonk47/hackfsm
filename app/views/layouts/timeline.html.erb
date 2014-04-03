@@ -9,16 +9,13 @@
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body id="timeline-body">
 
 <%= render "layouts/header" %>
-
-<div class="container-fluid">
-  <%= yield %>
-</div>
+<%= yield(:sidebar) %>
+<%= yield %>
 
 </body>
 </html>
