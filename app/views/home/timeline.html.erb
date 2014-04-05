@@ -7,19 +7,17 @@ Timeline
 <div id="sidebar">
   <h2>Layers</h2>
   <ul>
-    <li>
-      <a data-toggle="collapse" href="#tg-events">Events</a>
-      <ul id="tg-events" class="collapse">
-        <li><a href="#">Protests</a></li>
-        <li><a href="#">Arrests</a></li>
-      </ul>
-    </li>
-    <li>
-      <a data-toggle="collapse" href="#tg-demographics">Demographics</a>
-      <ul id="tg-demographics" class="collapse">
-        <li><a href="#">Race</a></li>
-        <li><a href="#">Gender</a></li>
-      </ul>
-    </li>
+    <% GroupHeader.all.each do |h| %>
+      <li>
+        <a data-toggle="collapse" href="#tg-<%= h.name.parameterize %>">
+          <%= h.name %>
+        </a>
+        <ul id="tg-<%= h.name.parameterize %>" class="collapse">
+          <% h.groups.all.each do |g| %>
+            <li><a href="#"><%= g.name %></a></li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
 </div>
 <% end %>

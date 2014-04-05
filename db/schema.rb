@@ -11,6 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20140405234343) do
+
+  create_table "group_headers", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.string   "resolution"
+    t.string   "source_url"
+    t.string   "source_name"
+    t.string   "source_author"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "group_header_id"
+  end
 
 end
