@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+group_headers = GroupHeader.create([{ name: 'Events' },
+                                    { name: 'Demographics' }])
+
+Group.create(name: 'Protests', group_header: group_headers.first)
+Group.create(name: 'Arrests', group_header: group_headers.first)
+
+Group.create(name: 'Gender', group_header: group_headers.last)
