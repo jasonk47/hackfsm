@@ -64,7 +64,7 @@
 }
 
 #sidebar > ul > li > a {
-  background-color: #1f87e0;
+  background-color: #222;
   color: #FFF;
   font-size: 1em;
   font-family: "Open Sans", sans-serif;
@@ -82,15 +82,54 @@
 
 #timeline-select {
   top: 80px;
-  left: 200px;
+  right: 0;
   bottom: 0;
   background-color: #434343;
   width: 150px;
   color: #AAA;
   position: fixed;
-  overflow: scroll;
+  overflow-y: scroll;
+}
+
+#timeline-select > ul > li > a {
+  padding: 5px 5px 5px 20px;
 }
 
 #timeline-select > ul > li > ul > li > a {
-  padding: 5px 5px 5px 20px;
+  padding: 5px 20px 5px 20px;
+  text-align: right;
+}
+
+#timeline-select > ul > li > ul > .active {
+  background-color: #222;
+  color: #FFF;
+}
+
+#timeline-dates {
+  margin: 100px 0 0 200px;
+}
+
+#timeline-dates .month {
+  width: 100%;
+  border-bottom: 1px solid #BBB;
+  color: #BBB;
+  padding: 0 0 0 80px;
+}
+
+#timeline-dates .month h3 {
+  font-size: 1.2em;
+  position: relative;
+  top: 28px;
+  background-color: #EEE;
+  padding: 10px;
+  display: inline-block;
+}
+
+#timeline-line {
+  position: fixed;
+  bottom: 0;
+  top: 80px;
+  left: 250px;
+  width: 5px;
+  background-color: #1f87e0;
 }

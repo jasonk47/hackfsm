@@ -23,16 +23,37 @@ Timeline
 
 <div id="timeline-select">
   <h2>Year</h2>
-  <ul>
-    <% (1960..1970).each do |y| %>
+  <ul class="nav">
+    <% (1963..1970).each do |y| %>
     <li>
       <a data-toggle="collapse" href="#ty-<%= y %>"><%= y %></a>
       <ul id="ty-<%= y %>" class="collapse">
         <% (1..12).each do |m| %>
-          <li><a href="#"><%= Date::MONTHNAMES[m] %></a></li>
+          <li><a href="#<%= "D-#{Date::ABBR_MONTHNAMES[m]}-#{y}" %>">
+              <%= Date::MONTHNAMES[m] %></a></li>
         <% end %>
       </ul>
     </li>
     <% end %>
   </ul>
+</div>
+
+<div id="timeline-dates">
+  <div class="month">
+    <h3>December 2012</h3>
+    <div class="node">
+      <div class="marker"></div>
+      <div class="infobox"></div>
+    </div>
+  </div>
+  <% (1963..1970).each do |y| %>
+    <% (1..12).each do |m| %>
+      <div id="<%= "D-#{Date::ABBR_MONTHNAMES[m]}-#{y}" %>" class="month">
+        <h3><%= "#{Date::MONTHNAMES[m]} #{y}" %></h3>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<div id="timeline-line">
 </div>
