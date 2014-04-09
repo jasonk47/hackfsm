@@ -3,7 +3,6 @@ Timeline
 <% end %>
 
 <% content_for :sidebar do %>
-<% # TODO replace with real sidebar %>
 <div id="sidebar">
   <h2>Layers</h2>
   <ul>
@@ -21,3 +20,19 @@ Timeline
     <% end %>
 </div>
 <% end %>
+
+<div id="timeline-select">
+  <h2>Year</h2>
+  <ul>
+    <% (1960..1970).each do |y| %>
+    <li>
+      <a data-toggle="collapse" href="#ty-<%= y %>"><%= y %></a>
+      <ul id="ty-<%= y %>" class="collapse">
+        <% (1..12).each do |m| %>
+          <li><a href="#"><%= Date::MONTHNAMES[m] %></a></li>
+        <% end %>
+      </ul>
+    </li>
+    <% end %>
+  </ul>
+</div>
