@@ -11,7 +11,8 @@
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
   <%= csrf_meta_tags %>
 </head>
-<body id="timeline-body" data-spy="scroll" data-target="#timeline-select">
+<body id="timeline-body" data-spy="scroll" data-target="#timeline-select"
+    data-offset="100">
 
 <%= render "layouts/header" %>
 <%= yield(:sidebar) %>

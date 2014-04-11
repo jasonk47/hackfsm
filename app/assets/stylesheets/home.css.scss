@@ -111,18 +111,90 @@
 
 #timeline-dates .month {
   width: 100%;
-  border-bottom: 1px solid #BBB;
   color: #BBB;
-  padding: 0 0 0 80px;
+  padding-bottom: 40px;
 }
 
 #timeline-dates .month h3 {
   font-size: 1.2em;
   position: relative;
-  top: 28px;
+  top: -40px;
   background-color: #EEE;
   padding: 10px;
+  margin-left: 80px;
   display: inline-block;
+}
+
+#timeline-dates .month .line {
+  background-color: #BBB;
+  height: 1px;
+}
+
+#timeline-dates .date {
+  padding-left: 60px;
+  padding-right: 5px;
+  border-bottom: 1px solid #BBB;
+  display: inline-block;
+}
+
+#timeline-dates .node {
+  padding: 10px 10px 10px 0;
+}
+
+#timeline-dates .node .marker {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #1f87e8;
+  border: 2px solid #EEE;
+  margin: 0 0 0 42px;
+  position: relative;
+  z-index: 10;
+  float: left;
+  display: inline-block;
+}
+
+#timeline-dates .node .text {
+  float: left;
+  display: inline-block;
+  padding: 0 0 0 10px;
+}
+
+#timeline-dates .node .infobox {
+  display: block;
+  background-color: #333;
+  clear: both;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 100;
+  margin: -20px 0 0 240px;
+}
+
+#timeline-dates .node .infobox p {
+  margin: 0;
+  padding: 10px;
+}
+
+#timeline-dates .node .infobox .controls {
+}
+
+#timeline-dates .node .infobox .controls a {
+  background-color: #1f87e8;
+  color: #FFF;
+  display: block;
+  text-align: center;
+  padding: 10px;
+  border-radius: 0 0 10px 10px;
+}
+
+#timeline-dates .node .infobox .controls a:hover {
+  text-decoration: none;
+  background-color: #555;
+}
+
+#timeline-dates .node .infobox img {
+  max-height: 200px;
+  border-radius: 10px 10px 0 0;
 }
 
 #timeline-line {
