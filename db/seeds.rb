@@ -6,7 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-group_headers = GroupHeader.create(name: 'Events')
 demographics = GroupHeader.create(name: 'Demographics')
 housing = GroupHeader.create(name: 'Housing')
 schooling = GroupHeader.create(name: 'Schooling')
