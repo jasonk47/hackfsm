@@ -2,12 +2,12 @@ require 'net/http'
 
 module TimelineHelper
 
-  def get_from_fsm_api(request)
+  def get_from_fsm_api(request, rows = 30)
     app_info = File.new('app_info.dat', 'r')
     app_id = app_info.gets.strip
     app_key = app_info.gets.strip
     # puts "app_id: #{app_id} app_key: #{app_key}"
-    uri = URI("https://apis.berkeley.edu/solr/fsm/select?q=#{request}&wt=json&app_id=#{app_id}&app_key=#{app_key}")
+    uri = URI("https://apis.berkeley.edu/solr/fsm/select?q=#{request}&wt=json&app_id=#{app_id}&app_key=#{app_key}&rows=#{rows}")
     resp = Net::HTTP.start(uri.host, uri.port,
       :use_ssl => uri.scheme == 'https') do |http|
       request = Net::HTTP::Get.new uri
@@ -170,6 +170,34 @@ module TimelineHelper
     return get_from_fsm_api(query_string)
   end
 
+  # TODO add caching
+  def timeline
+    require 'json'
+
+    query = URI.escape('fsmDateCreated:[* TO *]')
+    results = get_from_fsm_api(query, 800)
+
+    docs = results[0]['response']['docs']
+    timeline_hash = []
+    params_to_keep = [
+      'fsmCreator',
+      'fsmDateCreated',
+      'fsmTypeOfResource',
+      'id',
+      'fsmTitle',
+      'fsmImageUrl'
+    ]
+    docs.each do |d|
+      timeline_doc = {}
+      params_to_keep.each do |p|
+        unless (d[p].nil? || d[p].kind_of?(Array))
+          timeline_doc[p] = d[p].first
+        end
+      end
+      timeline_hash = timeline_hash << timeline_doc
+    end
+    return timeline_hash.to_json
+  end
   
   # Takes in a name (title), start date, end date. Returns list of hashes of
   # relevant results
