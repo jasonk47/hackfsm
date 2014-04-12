@@ -12,10 +12,6 @@ housing = GroupHeader.create(name: 'Housing')
 schooling = GroupHeader.create(name: 'Schooling')
 occupation = GroupHeader.create(name: 'Occupation')
 
-Group.create(name: 'Protests', group_header: group_headers.first)
-Group.create(name: 'Arrests', group_header: group_headers.first)
-Group.create(name: 'Gender', group_header: group_headers.last)
-
 # Population total
 berkeley_pop = Group.create(name: 'Berkeley Population', group_header: demographics)
 
