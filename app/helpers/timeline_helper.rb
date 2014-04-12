@@ -110,9 +110,9 @@ module TimelineHelper
 
   # Returns the full hash of data with id
   def get_hash_from_id(id)
-    id = '%22' << id << '%22'
+    esc_id = '%22' << id << '%22'
     begin
-      return get_from_fsm_api("id:#{id}")['response']['docs'][0]
+      return get_from_fsm_api("id:#{esc_id}")['response']['docs'][0]
     rescue
       print "#{id} is not a valid ID"
     end
@@ -141,4 +141,12 @@ module TimelineHelper
     end
   end
 
+  
+  # Takes in a name (title), start date, end date. Returns list of hashes of
+  # relevant results
+  def get_data_adv_query(name, date_start, date_end)
+    esc_title = '%22' << name << '%22'
+  
+  end
+  
 end
