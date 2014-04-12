@@ -31,7 +31,7 @@ Timeline
 <div id="timeline-select">
   <h2>Year</h2>
   <ul id="tls-nav" class="nav">
-    <% (1963..1970).each do |y| %>
+    <% (1964..1970).each do |y| %>
     <li>
       <a data-toggle="collapse" href="#ty-<%= y %>"><%= y %></a>
       <ul id="ty-<%= y %>" class="collapse">
@@ -61,7 +61,7 @@ Timeline
 </div>-->
 
 <div id="timeline-dates">
-  <% (1963..1970).each do |y| %>
+  <% (1964..1970).each do |y| %>
     <% (1..12).each do |m| %>
       <div id="<%= "D-#{Date::ABBR_MONTHNAMES[m]}-#{y}" %>" class="month">
         <div class="line"></div>
