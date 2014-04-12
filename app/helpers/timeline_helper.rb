@@ -2,12 +2,13 @@ require 'net/http'
 
 module TimelineHelper
 
-  def get_from_fsm_api(request)
+  def get_from_fsm_api(request, page = 0)
     app_info = File.new('app_info.dat', 'r')
     app_id = app_info.gets.strip
     app_key = app_info.gets.strip
+    offset = page * 30
     # puts "app_id: #{app_id} app_key: #{app_key}"
-    uri = URI(URI.escape("https://apis.berkeley.edu/solr/fsm/select?q=#{request}&wt=json&app_id=#{app_id}&app_key=#{app_key}"))
+    uri = URI(URI.escape("https://apis.berkeley.edu/solr/fsm/select?q=#{request}&wt=json&app_id=#{app_id}&app_key=#{app_key}&start=#{offset}"))
     resp = Net::HTTP.start(uri.host, uri.port,
       :use_ssl => uri.scheme == 'https') do |http|
       request = Net::HTTP::Get.new uri
@@ -141,7 +142,7 @@ module TimelineHelper
     end
   end
 
-  def adv_search(base_string, query_map)
+  def adv_search(base_string, query_map, page = 0)
     if base_string.nil?
       query_string = ''
     else
@@ -167,7 +168,7 @@ module TimelineHelper
       end
     end
     puts query_string
-    return get_from_fsm_api(query_string)
+    return get_from_fsm_api(query_string, page)
   end
 
   
