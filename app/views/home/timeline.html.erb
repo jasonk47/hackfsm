@@ -45,7 +45,7 @@ Timeline
   </ul>
 </div>
 
-<div id="timeline-info">
+<!--<div id="timeline-info">
   <img src="http://digitalassets.lib.berkeley.edu/fsm/ucb/images/brk00039505b_b.jpg" alt="" />
   <ul>
     <li>
@@ -58,7 +58,7 @@ Timeline
     </li>
   </ul>
   <a href="#"><i class="fa fa-share-square-o"></i> Details</a>
-</div>
+</div>-->
 
 <div id="timeline-dates">
   <% (1963..1970).each do |y| %>
@@ -81,6 +81,11 @@ Timeline
             <div class="node">
               <div class="marker"></div>
               <div class="text">
+                <% if d["fsmImageUrl"].nil? %>
+                  [Document]
+                <% else %>
+                  [Image]
+                <% end %>
                 <a href="/details/<%= d["id"] %>"><%= d["fsmTitle"] %></a>
               </div>
               <div class="clearfix"></div>
