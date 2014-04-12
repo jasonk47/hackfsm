@@ -12,7 +12,7 @@ class PeopleController < ApplicationController
     if @person.nil?
       redirect_to root_url
     end
-    @docs = adv_search(@person.name, {})["response"]["docs"]
+    @docs = adv_search(@person.name, {})
   end
 
 end

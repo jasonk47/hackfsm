@@ -133,7 +133,7 @@ module TimelineHelper
   end
 
   # an advanced search method for creating better queries to the solr API.
-  def adv_search(base_string, query_map, date_start, date_end)
+  def adv_search(base_string, query_map, date_start = nil, date_end = nil)
     if base_string.nil?
       query_string = ''
     else
