@@ -55,7 +55,7 @@
   display: block;
   width: 100%;
   padding: 10px;
-  color: #AAA;
+  color: #FFF;
 }
 
 #sidebar a:hover, #timeline-select a:hover {
@@ -105,13 +105,60 @@
   color: #FFF;
 }
 
+#timeline-info {
+  top: 80px;
+  right: 150px;
+  width: 200px;
+  bottom: 0;
+  position: fixed;
+  overflow-y: scroll;
+  background-color: #323232;
+}
+
+#timeline-info a {
+  background-color: #222;
+  color: #FFF;
+  display: block;
+  text-align: center;
+  padding: 10px;
+}
+
+#timeline-info a:hover {
+  text-decoration: none;
+  background-color: #555;
+}
+
+#timeline-info img {
+  max-width: 200px;
+}
+
+#timeline-info ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: #FFF;
+}
+
+#timeline-info ul li strong {
+  display: block;
+  background-color: #222;
+  color: #FFF;
+  padding: 5px;
+  text-align: center;
+}
+
+#timeline-info ul li span {
+  padding: 10px;
+  display: block;
+}
+
 #timeline-dates {
   margin: 100px 0 0 200px;
 }
 
 #timeline-dates .month {
   width: 100%;
-  color: #BBB;
+  color: #222;
   padding-bottom: 40px;
 }
 
@@ -139,6 +186,10 @@
 
 #timeline-dates .node {
   padding: 10px 10px 10px 0;
+}
+
+#timeline-dates .node a {
+  color: #1F4261;
 }
 
 #timeline-dates .node .marker {
@@ -173,13 +224,15 @@
 #timeline-dates .node .infobox p {
   margin: 0;
   padding: 10px;
+  color: #FFF;
 }
 
 #timeline-dates .node .infobox .controls {
 }
 
 #timeline-dates .node .infobox .controls a {
-  background-color: #1f87e8;
+  //background-color: #1f87e8;
+  background-color: #222;
   color: #FFF;
   display: block;
   text-align: center;
