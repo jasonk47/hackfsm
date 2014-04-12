@@ -1,16 +1,24 @@
 require 'net/http'
 
 class TimelineController < ApplicationController
-  @@app_id = 'ffebc2af'
-  @@app_key = '7554cf788e4e3222653fd1b84164ef84'
+  include TimelineHelper
 
-  def get_from_fsm_api(request)
-    url = URI.parse('https://apis.berkeley.edu/solr/fsm/select?q=*&wt=json&app_id=ffebc2af&app_key=7554cf788e4e3222653fd1b84164ef84')
-    req = Net::HTTP::Get.new(url.path)
-    res = Net::HTTP.start(url.host, url.port) {|http|
-      http.request(req)
+  def show
+    id = params[:id]
+
+    @fields_to_check = {
+      "Creator"       => "fsmCreator",
+      "Date"          => "fsmDateCreated",
+      "Resource Type" => "fsmTypeOfResource",
+      "Note"          => "fsmNote",
+      "Related Title" => "fsmRelatedTitle",
+      "Archive Identifier"  => "fsmIdentifier",
+      "Related Identifier"  => "fsmRelatedIdentifier",
+      "Archive Location"    => "fsmPhysicalLocation"
     }
-    puts res.body
 
+    @info = get_hash_from_id(id)
+    @content = get_data_from_id(id)
   end
+
 end

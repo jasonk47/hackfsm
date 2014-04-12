@@ -5,7 +5,10 @@ Hackfsm::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#index'
 
-  get 'timeline' => 'home#timeline' 
+  get 'timeline' => 'home#timeline'
+  get 'details/:id' => 'timeline#show', id: /.*/
+
+  resources :people, only: [:index, :show]
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

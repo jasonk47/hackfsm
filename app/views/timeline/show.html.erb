@@ -1,0 +1,30 @@
+<div id="details-main" class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <p class="classification">Archive Document</p>
+    <h1><%= @info["fsmTitle"].first %></h1>
+
+    <h2>Details</h2>
+    <ul>
+      <% @fields_to_check.each do |k, v| %>
+        <% if !@info[v].nil? %>
+          <li>
+            <strong><%= k %></strong>
+            <%= @info[v].first.delete "[]" %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+    <h2>Document</h2>
+    <% if @content.kind_of?(Array) %>
+      <% @content.each do |i| %>
+        <div class="document">
+          <%= link_to i do %>
+            <img src="<%= i %>" alt="<%= @info["fsmTitle"] %>" />
+          <% end %>
+        </div>
+      <% end %>
+    <% elsif %>
+        <%= @content %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div id="people-main" class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <h1>People</h1>
+
+    <ul id="important">
+      <% @important.each do |p| %>
+        <li><%= link_to p.name, p %></li>
+      <% end %>
+    </ul>
+    <span class="clearfix"></span>
+    <ul>
+      <% @people.each do |p| %>
+        <li><%= link_to p.name, p %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

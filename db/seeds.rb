@@ -13,3 +13,7 @@ Group.create(name: 'Protests', group_header: group_headers.first)
 Group.create(name: 'Arrests', group_header: group_headers.first)
 
 Group.create(name: 'Gender', group_header: group_headers.last)
+
+Person.create(name: 'Mario Savio', slug: 'mario-savio', important: true)
+Person.create(name: 'Michael Rossman', slug: 'michael-rossman', important: true)
+Person.create(name: 'John Doe', slug: 'john-doe', important: false)

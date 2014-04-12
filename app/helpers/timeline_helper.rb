@@ -38,7 +38,11 @@ module TimelineHelper
     end
     
     image_urls = data_hash['fsmImageUrl']
-    tei_url = data_hash['fsmTeiUrl'][0]
+
+    if !data_hash['fsmTeiUrl'].nil?
+      tei_url = data_hash['fsmTeiUrl'][0]
+    end
+
     if image_urls != nil
       return image_urls
     elsif tei_url != nil
