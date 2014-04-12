@@ -7,7 +7,7 @@ module TimelineHelper
     app_id = app_info.gets.strip
     app_key = app_info.gets.strip
     # puts "app_id: #{app_id} app_key: #{app_key}"
-    uri = URI("https://apis.berkeley.edu/solr/fsm/select?q=#{request}&wt=json&app_id=#{app_id}&app_key=#{app_key}")
+    uri = URI(URI.escape("https://apis.berkeley.edu/solr/fsm/select?q=#{request}&wt=json&app_id=#{app_id}&app_key=#{app_key}"))
     resp = Net::HTTP.start(uri.host, uri.port,
       :use_ssl => uri.scheme == 'https') do |http|
       request = Net::HTTP::Get.new uri
@@ -139,6 +139,35 @@ module TimelineHelper
     elsif tei_url != nil
       return Net::HTTP.get_response(URI.parse(tei_url)).body
     end
+  end
+
+  def adv_search(base_string, query_map)
+    if base_string.nil?
+      query_string = ''
+    else
+      query_string = base_string
+    end
+    possible_params = {
+      'Creator'       => 'fsmCreator',
+      'Date'          => 'fsmDateCreated',
+      'Resource Type' => 'fsmTypeOfResource',
+      'Note'          => 'fsmNote',
+      'Related Title' => 'fsmRelatedTitle',
+      'Archive Identifier'  => 'fsmIdentifier',
+      'Related Identifier'  => 'fsmRelatedIdentifier',
+      'Archive Location'    => 'fsmPhysicalLocation'
+    }
+    for pair in query_map.each
+      if possible_params.has_key? pair[0]
+        if query_string.length == 0
+          query_string = '%s:%s' % [possible_params[pair[0]], pair[1]]
+        else
+          query_string += ' AND %s:%s' % [possible_params[pair[0]], pair[1]]
+        end
+      end
+    end
+    puts query_string
+    return get_from_fsm_api(query_string)
   end
 
   
