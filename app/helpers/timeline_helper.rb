@@ -128,7 +128,7 @@ module TimelineHelper
     end
   end
 
-  def adv_search(base_string, query_map)
+  def adv_search(base_string, query_map, date_start, date_end)
     if base_string.nil?
       query_string = ''
     else
@@ -154,7 +154,45 @@ module TimelineHelper
       end
     end
     query_string = URI.escape(query_string)
-    return get_from_fsm_api(query_string)
+    results = get_from_fsm_api(query_string)['response']['docs']
+    date_filtered_results = []
+    for result in results
+      if is_before(date_start, parse_date(result['fsmDateCreated'])) and
+        is_before(parse_date(result['fsmDateCreated']), date_end)
+        date_filtered_results << result
+      end
+    end
+    return date_filtered_results
+  end
+
+  def is_before(date1, date2)
+    if date1.nil? or date2.nil? # if at least one is nil, yes
+      return true
+    end
+    puts 'comparing %s and %s' % [date1.to_s, date2.to_s]
+    if date1[2] < date2[2] # earlier year
+      puts 'earlier year'
+      return true
+    elsif date1[2] > date2[2] # later year
+      puts 'later year'
+      return false
+    end
+    if date1[0].nil? or date2[0].nil? # if either doesn't have month, yes
+      return true
+    elsif date1[0] < date2[0]
+      return true
+    elsif date1[0] > date2[0]
+      return false
+    end
+    if date1[1].nil? or date2[1].nil? # if either doesn't have day, yes
+      return true
+    elsif date1[1] < date2[1]
+      return true
+    elsif date1[1] > date2[1]
+      return false
+    else
+      return true # dates are equal. search will be inclusive
+    end
   end
 
   # TODO add caching
@@ -196,13 +234,6 @@ module TimelineHelper
       count_docs += 1
     end
     return timeline_hash
-  end
-
-  # Takes in a name (title), start date, end date. Returns list of hashes of
-  # relevant results
-  def get_data_adv_query(name, date_start, date_end)
-    esc_title = '%22' << name << '%22'
-
   end
 
 end
