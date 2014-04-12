@@ -8,7 +8,6 @@ $(document).ready(function() {
   });
 
   $(".node .text a").on("click", function() {
-    $(this).parent().siblings(".infobox").toggle(0);
-    return false;
+
   });
 });

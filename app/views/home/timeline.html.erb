@@ -54,37 +54,31 @@ Timeline
 </div>
 
 <div id="timeline-dates">
-  <div class="month">
-    <div class="line"></div>
-    <h3>December 2012</h3>
-    <div class="node">
-      <div class="marker"></div>
-      <div class="text">
-        <a href="#">Name of Photograph</a>
-      </div>
-      <div class="clearfix"></div>
-    </div>
-    <div class="date">December 26, 2012</div>
-    <div class="node">
-      <div class="marker"></div>
-      <div class="text">
-        <a href="#">Name of Document</a>
-      </div>
-      <!--<div class="infobox">
-        <img src="http://digitalassets.lib.berkeley.edu/fsm/ucb/images/brk00039505b_b.jpg" alt="" />
-        <p>There is some caption here!</p>
-        <div class="controls">
-          <a href="#"><i class="fa fa-share-square-o"></i> Details</a>
-        </div>
-      </div>-->
-      <div class="clearfix"></div>
-    </div>
-  </div>
   <% (1963..1970).each do |y| %>
     <% (1..12).each do |m| %>
       <div id="<%= "D-#{Date::ABBR_MONTHNAMES[m]}-#{y}" %>" class="month">
         <div class="line"></div>
         <h3><%= "#{Date::MONTHNAMES[m]} #{y}" %></h3>
+        <% 
+          if @timeline_info[[y, m]].nil? %>
+            </div> 
+         <%   next
+          end
+        %>
+        <% @timeline_info[[y, m]].each do |day, docs| %>
+          <% next if day.nil? %>
+          <% date_obj = Date.new(y, m, day) %>
+          <div class="date"><%= date_obj.strftime("%B %-d, %Y") %></div>
+          <% docs.each do |d| %>
+            <div class="node">
+              <div class="marker"></div>
+              <div class="text">
+                <a href="/details/<%= d["id"] %>"><%= d["fsmTitle"] %></a>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     <% end %>
   <% end %>

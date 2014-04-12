@@ -158,9 +158,7 @@ module TimelineHelper
   end
 
   # TODO add caching
-  def timeline
-    require 'json'
-
+  def timeline_info
     query = URI.escape('fsmDateCreated:[* TO *]')
     results = get_from_fsm_api(query, 800)
 
@@ -180,6 +178,8 @@ module TimelineHelper
       params_to_keep.each do |p|
         if (!d[p].nil? && d[p].kind_of?(Array))
           timeline_doc[p] = d[p].first
+        elsif !d[p].nil?
+          timeline_doc[p] = d[p]
         end
       end
       date = parse_date(timeline_doc['fsmDateCreated'])

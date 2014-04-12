@@ -6,7 +6,7 @@ Hackfsm::Application.routes.draw do
   root 'home#index'
 
   get 'timeline' => 'home#timeline'
-  get 'details/:id' => 'timeline#show', id: /.*/
+  get 'details/:id' => 'timeline#show', id: /.*/, as: :details
 
   resources :people, only: [:index, :show]
   # Example of regular route:
