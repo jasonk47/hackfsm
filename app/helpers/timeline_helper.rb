@@ -2,6 +2,8 @@ require 'net/http'
 
 module TimelineHelper
 
+  # given a string request representing keywords or argument extensions, send a
+  # query to the FSM API
   def get_from_fsm_api(request, rows = 30)
     app_info = File.new('app_info.dat', 'r')
     app_id = app_info.gets.strip
@@ -16,50 +18,51 @@ module TimelineHelper
     return JSON.parse(resp.body)
   end
 
-  def get_all_xml_data()
-    app_info = File.new('xmls.dat', 'w')
-    response = get_from_fsm_api('*&rows=900&indent=on')
-    app_info.puts(response)
-  end
-
+  # given one of the date formats listed on the FSM API website, parse it into a
+  # three-element array of numbers ([month, day, year]) which may be more useful.
+  # nil values in the array represent unspecified date quantities, and a nil
+  # output means input couldn't be parsed.
   def parse_date(date)
     months = {'Jan' => 1, 'Feb' => 2, 'Mar' => 3, 'Apr' => 4, 'May' => 5, 'Jun' => 6,
               'June' => 6, 'Jul' => 7, 'July' => 7, 'Aug' => 8, 'Sept' => 9, 'Oct' => 10,
               'Nov' => 11, 'Dec' => 12}
 
+    if date.kind_of? Array
+      date = date[0]
+    end
     month, day, year = nil, nil, nil
-    matchdate = /^(\w\w\w)\.? (\d\d?), (\d\d\d\d)$/.match(date)
+    matchdate = /^(\w\w\w)\.? (\d\d?), (\d\d\d\d)$/.match(date.to_s)
     if !matchdate.nil?
       month = months[matchdate[1]]
       day = matchdate[2].to_i
       year = matchdate[3].to_i
       return [month, day, year]
     end
-    matchdate = /^(\w\w\w\w)\.? (\d\d?), (\d\d\d\d)$/.match(date)
+    matchdate = /^(\w\w\w\w)\.? (\d\d?), (\d\d\d\d)$/.match(date.to_s)
     if !matchdate.nil?
       month = months[matchdate[1]]
       day = matchdate[2].to_i
       year = matchdate[3].to_i
       return [month, day, year]
     end
-    matchdate = /^\d\d\d\d$/.match(date)
+    matchdate = /^\d\d\d\d$/.match(date.to_s)
     if !matchdate.nil?
       year = date.to_i
       return [month, day, year]
     end
-    matchdate = /^(\w\w\w)-(\d\d)$/.match(date)
+    matchdate = /^(\w\w\w)-(\d\d)$/.match(date.to_s)
     if !matchdate.nil?
       month = months[matchdate[1]]
       year = matchdate[2].to_i + 1900
       return [month, day, year]
     end
-    matchdate = /^(\w\w\w)\.?, (\d\d\d\d)$/.match(date)
+    matchdate = /^(\w\w\w)\.?, (\d\d\d\d)$/.match(date.to_s)
     if !matchdate.nil?
       month = months[matchdate[1]]
       year = matchdate[2].to_i
       return [month, day, year]
     end
-    matchdate = /^(\w\w\w\w)\.? (\d\d\d\d)$/.match(date)
+    matchdate = /^(\w\w\w\w)\.? (\d\d\d\d)$/.match(date.to_s)
     if !matchdate.nil?
       month = months[matchdate[1]]
       year = matchdate[2].to_i
@@ -67,7 +70,7 @@ module TimelineHelper
     end
 
     # ranges
-    matchdate = /^(\w\w\w)\.? (\d\d?)-(\d\d?), (\d\d\d\d)$/.match(date)
+    matchdate = /^(\w\w\w)\.? (\d\d?)-(\d\d?), (\d\d\d\d)$/.match(date.to_s)
     if !matchdate.nil?
       month = months[matchdate[1]]
       day1 = matchdate[2].to_i
@@ -75,7 +78,7 @@ module TimelineHelper
       year = matchdate[4].to_i
       return [month, day1, year]
     end
-    matchdate = /^(\w\w\w\w)\.? (\d\d?)-(\d\d?), (\d\d\d\d)$/.match(date)
+    matchdate = /^(\w\w\w\w)\.? (\d\d?)-(\d\d?), (\d\d\d\d)$/.match(date.to_s)
     if !matchdate.nil?
       month = months[matchdate[1]]
       day1 = matchdate[2].to_i
@@ -83,16 +86,17 @@ module TimelineHelper
       year = matchdate[4].to_i
       return [month, day1, year]
     end
-    matchdate = /^(\d\d\d\d)-(\d\d\d\d)$/.match(date)
+    matchdate = /^(\d\d\d\d)-(\d\d\d\d)$/.match(date.to_s)
     if !matchdate.nil?
       year1 = matchdate[1].to_i
       year2 = matchdate[2].to_i
       return [month, day, year1]
     end
-    matchdate = /^(?:ca\.|circa) (\d\d\d\d)$/.match(date)
+    matchdate = /^(?:ca\.|circa) (\d\d\d\d)$/.match(date.to_s)
     if !matchdate.nil?
       return [month, day, matchdate[1].to_i]
     end
+    puts 'date parse fail: %s' % date.to_s
   end
 
   # Returns the full hash of data with id
@@ -128,6 +132,7 @@ module TimelineHelper
     end
   end
 
+  # an advanced search method for creating better queries to the solr API.
   def adv_search(base_string, query_map, date_start, date_end)
     if base_string.nil?
       query_string = ''
@@ -165,6 +170,8 @@ module TimelineHelper
     return date_filtered_results
   end
 
+  # take two three-element date arrays ([month, day, year]) and return true iff
+  # the first date comes before the second. If in doubt, yes.
   def is_before(date1, date2)
     if date1.nil? or date2.nil? # if at least one is nil, yes
       return true
@@ -195,7 +202,8 @@ module TimelineHelper
     end
   end
 
-  # TODO add caching
+  # a utility method which finds and assembles API data in a manner appropriate
+  # for the timeline page's internal representation.
   def timeline_info
     query = URI.escape('fsmDateCreated:[* TO *]')
     results = get_from_fsm_api(query, 800)
