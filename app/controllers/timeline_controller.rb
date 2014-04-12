@@ -4,6 +4,8 @@ require 'nokogiri'
 class TimelineController < ApplicationController
   include TimelineHelper
 
+   skip_before_action :verify_authenticity_token, :only => [:search, :search_post]
+
   def show
     id = params[:id]
 
@@ -49,6 +51,31 @@ class TimelineController < ApplicationController
       end
       @content = text.to_s.html_safe
     end
+  end
+
+  def search 
+    @fields = {
+      "Creator"             => "fsmCreator",
+      "Title"               => "fsmTitle",
+      "Date"                => "fsmDateCreated",
+      "Resource Type"       => "fsmTypeOfResource",
+      "Note"                => "fsmNote",
+      "Related Title"       => "fsmRelatedTitle",
+      "Archive Identifier"  => "fsmIdentifier",
+      "Related Identifier"  => "fsmRelatedIdentifier",
+      "Archive Location"    => "fsmPhysicalLocation"
+    }
+  end
+
+  def search_post
+    filtered_params = {}
+    params.each do |k, v|
+      if !v.nil? && v != ""
+        filtered_params[k] = v
+      end
+    end
+
+    @docs = adv_search(params[:query], filtered_params)
   end
 
 end

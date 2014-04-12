@@ -1,0 +1,19 @@
+<div id="search" class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <h1>Advanced Search</h1>
+    <form action="/search" method="post" role="form">
+      <div class="form-group">
+        <label for="query">Search Terms</label>
+        <input type="text" class="form-control" id="query" name="query" />
+      </div>
+      <% @fields.each do |f, v| %>
+        <div class="form-group">
+          <label for="<%= v %>"><%= f %></label>
+          <input type="text" id="<%= v %>" name="<%= f %>" class="form-control" />
+        </div>
+      <% end %>
+      <input type="submit" />
+    </form>
+
+  </div>
+</div>

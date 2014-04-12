@@ -66,6 +66,7 @@ Timeline
       <div id="<%= "D-#{Date::ABBR_MONTHNAMES[m]}-#{y}" %>" class="month">
         <div class="line"></div>
         <h3><%= "#{Date::MONTHNAMES[m]} #{y}" %></h3>
+        <div class="clearfix"></div>
         <% 
           if @timeline_info[[y, m]].nil? %>
             </div> 

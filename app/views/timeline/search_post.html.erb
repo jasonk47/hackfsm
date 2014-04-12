@@ -1,0 +1,17 @@
+<div id="search-results" class="row">
+  <div class="col-md-8 col-md-offset-2">
+
+    <a class="back-button" href="/search">Back to Search Form</a>
+
+    <h1>Search Results</h1>
+
+    <% @docs.each do |d| %>
+
+      <div class="search-result">
+        <a href="/details/<%= d["id"] %>"><%= d["fsmTitle"].join(", ") %></a> 
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

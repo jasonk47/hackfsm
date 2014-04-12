@@ -24,3 +24,20 @@
 .document {
   overflow: auto;
 }
+
+#search, #search-results {
+  margin-top: 90px;
+}
+
+.search-result {
+  padding: 10px 10px 10px 0;
+}
+
+.back-button {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #323232;
+  color: #FFF;
+  display: block;
+  width: 200px;
+}

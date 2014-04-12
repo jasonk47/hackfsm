@@ -8,6 +8,9 @@ Hackfsm::Application.routes.draw do
   get 'timeline' => 'home#timeline'
   get 'details/:id' => 'timeline#show', id: /.*/, as: :details
 
+  get 'search' => 'timeline#search'
+  post 'search' => 'timeline#search_post'
+
   resources :people, only: [:index, :show]
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
