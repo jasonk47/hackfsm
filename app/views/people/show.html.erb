@@ -1,0 +1,18 @@
+<div id="people-main" class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <h1><%= @person.name %></h1>
+
+    <h2>Archive References</h2>
+    <ul id="people-resources">
+      <% @docs.each do |d| %>
+        <li>
+          <a href="/details/<%= d["id"] %>"><%= d["fsmTitle"].join(", ") %></a>
+
+          <% if !d["fsmImageUrl"].nil? && !d["fsmImageUrl"][0].nil? %>
+            <img src="<%= d["fsmImageUrl"][0] %>" alt="<%= d["fsmTitle"] %>" />
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -10,4 +10,9 @@ $(document).ready(function() {
   $(".node .text a").on("click", function() {
 
   });
+
+  $("#sidebar ul li ul a").on("click", function() {
+    $(this).siblings(".value").toggle();
+    return false;
+  });
 });

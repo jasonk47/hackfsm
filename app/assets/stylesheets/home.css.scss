@@ -81,6 +81,17 @@
   text-decoration: none;
 }
 
+#sidebar > ul > li > ul .value {
+  padding: 10px;
+  display: none;
+}
+
+#sidebar > ul > li > ul .year {
+  color: #FFF;
+  display: block;
+  font-size: 1.5em;
+}
+
 #timeline-select {
   top: 80px;
   right: 0;

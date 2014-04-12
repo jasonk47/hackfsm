@@ -4,7 +4,7 @@ Timeline
 
 <% content_for :sidebar do %>
 <div id="sidebar">
-  <h2>Layers</h2>
+  <h2>Data</h2>
   <ul>
     <% GroupHeader.all.each do |h| %>
       <li>
@@ -13,7 +13,14 @@ Timeline
         </a>
         <ul id="tg-<%= h.name.parameterize %>" class="collapse">
           <% h.groups.all.each do |g| %>
-            <li><a href="#"><%= g.name %></a></li>
+            <li>
+              <a href="#"><%= g.name %></a>
+              <div class="value">
+                <% g.nodes.each do |n| %>
+                  <span class="year"><%= n.date.year %></span><%= n.value %>
+                <% end %>
+              </div>
+            </li>
           <% end %>
         </ul>
       </li>

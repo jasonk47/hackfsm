@@ -2,13 +2,15 @@
   <div class="col-md-8 col-md-offset-2">
     <h1>People</h1>
 
+    <h2>Mentioned Frequently</h2>
     <ul id="important">
       <% @important.each do |p| %>
         <li><%= link_to p.name, p %></li>
       <% end %>
     </ul>
     <span class="clearfix"></span>
-    <ul>
+    <h2>All People</h2>
+    <ul id="all-people">
       <% @people.each do |p| %>
         <li><%= link_to p.name, p %></li>
       <% end %>
