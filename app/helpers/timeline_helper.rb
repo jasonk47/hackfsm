@@ -6,7 +6,6 @@ module TimelineHelper
     app_info = File.new('app_info.dat', 'r')
     app_id = app_info.gets.strip
     app_key = app_info.gets.strip
-    # puts "app_id: #{app_id} app_key: #{app_key}"
     uri = URI("https://apis.berkeley.edu/solr/fsm/select?q=#{request}&wt=json&app_id=#{app_id}&app_key=#{app_key}&rows=#{rows}")
     resp = Net::HTTP.start(uri.host, uri.port,
       :use_ssl => uri.scheme == 'https') do |http|
@@ -31,7 +30,6 @@ module TimelineHelper
     month, day, year = nil, nil, nil
     matchdate = /^(\w\w\w)\.? (\d\d?), (\d\d\d\d)$/.match(date)
     if !matchdate.nil?
-      puts 'month %s day %s year %s' % [matchdate[1], matchdate[2], matchdate[3]]
       month = months[matchdate[1]]
       day = matchdate[2].to_i
       year = matchdate[3].to_i
@@ -39,7 +37,6 @@ module TimelineHelper
     end
     matchdate = /^(\w\w\w\w)\.? (\d\d?), (\d\d\d\d)$/.match(date)
     if !matchdate.nil?
-      puts 'month %s day %s year %s' % [matchdate[1], matchdate[2], matchdate[3]]
       month = months[matchdate[1]]
       day = matchdate[2].to_i
       year = matchdate[3].to_i
@@ -47,27 +44,23 @@ module TimelineHelper
     end
     matchdate = /^\d\d\d\d$/.match(date)
     if !matchdate.nil?
-      puts 'year %s' % (date)
       year = date.to_i
       return [month, day, year]
     end
     matchdate = /^(\w\w\w)-(\d\d)$/.match(date)
     if !matchdate.nil?
-      puts 'month %s year %s' % [matchdate[1], matchdate[2]]
       month = months[matchdate[1]]
       year = matchdate[2].to_i + 1900
       return [month, day, year]
     end
     matchdate = /^(\w\w\w)\.?, (\d\d\d\d)$/.match(date)
     if !matchdate.nil?
-      puts 'month %s year %s' % [matchdate[1], matchdate[2]]
       month = months[matchdate[1]]
       year = matchdate[2].to_i
       return [month, day, year]
     end
     matchdate = /^(\w\w\w\w)\.? (\d\d\d\d)$/.match(date)
     if !matchdate.nil?
-      puts 'month %s year %s' % [matchdate[1], matchdate[2]]
       month = months[matchdate[1]]
       year = matchdate[2].to_i
       return [month, day, year]
@@ -76,8 +69,6 @@ module TimelineHelper
     # ranges
     matchdate = /^(\w\w\w)\.? (\d\d?)-(\d\d?), (\d\d\d\d)$/.match(date)
     if !matchdate.nil?
-      puts 'month %s day1 %s day2 %s year %s' % [matchdate[1], matchdate[2],
-                                                  matchdate[3], matchdate[4]]
       month = months[matchdate[1]]
       day1 = matchdate[2].to_i
       day2 = matchdate[3].to_i
@@ -86,8 +77,6 @@ module TimelineHelper
     end
     matchdate = /^(\w\w\w\w)\.? (\d\d?)-(\d\d?), (\d\d\d\d)$/.match(date)
     if !matchdate.nil?
-      puts 'month %s day1 %s day2 %s year %s' % [matchdate[1], matchdate[2],
-                                                  matchdate[3], matchdate[4]]
       month = months[matchdate[1]]
       day1 = matchdate[2].to_i
       day2 = matchdate[3].to_i
@@ -96,14 +85,12 @@ module TimelineHelper
     end
     matchdate = /^(\d\d\d\d)-(\d\d\d\d)$/.match(date)
     if !matchdate.nil?
-      puts 'year1 %s year2 %s' % [matchdate[1], matchdate[2]]
       year1 = matchdate[1].to_i
       year2 = matchdate[2].to_i
       return [[month, day, year1], [month, day, year2]]
     end
     matchdate = /^(?:ca\.|circa) (\d\d\d\d)$/.match(date)
     if !matchdate.nil?
-      puts 'circa %s' % matchdate[1]
       return [month, day, matchdate[1].to_i]
     end
   end
@@ -175,10 +162,10 @@ module TimelineHelper
     require 'json'
 
     query = URI.escape('fsmDateCreated:[* TO *]')
-    results = get_from_fsm_api(query, 800)
+    results = get_from_fsm_api(query, 8)
 
-    docs = results[0]['response']['docs']
-    timeline_hash = []
+    docs = results['response']['docs']
+    timeline_hash = {}
     params_to_keep = [
       'fsmCreator',
       'fsmDateCreated',
@@ -190,20 +177,30 @@ module TimelineHelper
     docs.each do |d|
       timeline_doc = {}
       params_to_keep.each do |p|
-        unless (d[p].nil? || d[p].kind_of?(Array))
+        if (!d[p].nil? && d[p].kind_of?(Array))
           timeline_doc[p] = d[p].first
         end
       end
-      timeline_hash = timeline_hash << timeline_doc
+      date = parse_date(timeline_doc['fsmDateCreated'])
+      if date.nil?
+        next
+      end
+      unless timeline_hash.has_key? date
+        timeline_hash[[date[2], date[0]]] = {}
+      end
+      unless timeline_hash[[date[2], date[0]]].has_key? date[1]
+        timeline_hash[[date[2], date[0]]][date[1]] = []
+      end
+      timeline_hash[[date[2], date[0]]][date[1]] << timeline_doc
     end
     return timeline_hash.to_json
   end
-  
+
   # Takes in a name (title), start date, end date. Returns list of hashes of
   # relevant results
   def get_data_adv_query(name, date_start, date_end)
     esc_title = '%22' << name << '%22'
-  
+
   end
-  
+
 end
