@@ -9,7 +9,7 @@
         <% if !@info[v].nil? %>
           <li>
             <strong><%= k %></strong>
-            <%= @info[v].first.delete "[]" %>
+            <%= @info[v].join(", ") %>
           </li>
         <% end %>
       <% end %>
