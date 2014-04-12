@@ -73,7 +73,7 @@ module TimelineHelper
       day1 = matchdate[2].to_i
       day2 = matchdate[3].to_i
       year = matchdate[4].to_i
-      return [[month, day1, year], [month, day2, year]]
+      return [month, day1, year]
     end
     matchdate = /^(\w\w\w\w)\.? (\d\d?)-(\d\d?), (\d\d\d\d)$/.match(date)
     if !matchdate.nil?
@@ -81,13 +81,13 @@ module TimelineHelper
       day1 = matchdate[2].to_i
       day2 = matchdate[3].to_i
       year = matchdate[4].to_i
-      return [[month, day1, year], [month, day2, year]]
+      return [month, day1, year]
     end
     matchdate = /^(\d\d\d\d)-(\d\d\d\d)$/.match(date)
     if !matchdate.nil?
       year1 = matchdate[1].to_i
       year2 = matchdate[2].to_i
-      return [[month, day, year1], [month, day, year2]]
+      return [month, day, year1]
     end
     matchdate = /^(?:ca\.|circa) (\d\d\d\d)$/.match(date)
     if !matchdate.nil?
@@ -162,7 +162,7 @@ module TimelineHelper
     require 'json'
 
     query = URI.escape('fsmDateCreated:[* TO *]')
-    results = get_from_fsm_api(query, 8)
+    results = get_from_fsm_api(query, 800)
 
     docs = results['response']['docs']
     timeline_hash = {}
@@ -174,6 +174,7 @@ module TimelineHelper
       'fsmTitle',
       'fsmImageUrl'
     ]
+    count_docs = 0
     docs.each do |d|
       timeline_doc = {}
       params_to_keep.each do |p|
@@ -185,15 +186,16 @@ module TimelineHelper
       if date.nil?
         next
       end
-      unless timeline_hash.has_key? date
+      unless timeline_hash.has_key? [date[2], date[0]]
         timeline_hash[[date[2], date[0]]] = {}
       end
       unless timeline_hash[[date[2], date[0]]].has_key? date[1]
         timeline_hash[[date[2], date[0]]][date[1]] = []
       end
       timeline_hash[[date[2], date[0]]][date[1]] << timeline_doc
+      count_docs += 1
     end
-    return timeline_hash.to_json
+    return timeline_hash
   end
 
   # Takes in a name (title), start date, end date. Returns list of hashes of
