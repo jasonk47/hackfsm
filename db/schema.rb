@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140412021015) do
+ActiveRecord::Schema.define(version: 20140412071004) do
 
   create_table "group_headers", force: true do |t|
     t.string   "name"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 20140412021015) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_header_id"
+  end
+
+  create_table "nodes", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.date     "date"
+    t.float    "value"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "people", force: true do |t|
