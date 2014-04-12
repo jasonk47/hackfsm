@@ -2197,7 +2197,6 @@ Person.create(name: "Martin Meyerson", slug: "Martin Meyerson".parameterize, cou
 Person.create(name: "Virginia Furtney", slug: "Virginia Furtney".parameterize, count: 13)
 Person.create(name: "Donald McLaughlin", slug: "Donald McLaughlin".parameterize, count: 14)
 Person.create(name: "Edward Strong", slug: "Edward Strong".parameterize, count: 14)
-Person.create(name: "And Dean", slug: "And Dean".parameterize, count: 15)
 Person.create(name: "Bettina Aptheker", slug: "Bettina Aptheker".parameterize, count: 15)
 Person.create(name: "Steve Weissman", slug: "Steve Weissman".parameterize, count: 15)
 Person.create(name: "Arleigh Williams", slug: "Arleigh Williams".parameterize, count: 19)
