@@ -76,7 +76,12 @@ Timeline
         <% @timeline_info[[y, m]].each do |day, docs| %>
           <% next if day.nil? %>
           <% date_obj = Date.new(y, m, day) %>
+          <% summary = Summary.where(date: date_obj) %>
           <div class="date"><%= date_obj.strftime("%B %-d, %Y") %></div>
+          <% if !summary.empty? %>
+            <p class="summary"><a href="<%= summary.first.source_url %>">
+              <%= summary.first.summary %></a></p>
+          <% end %>
           <% docs.each do |d| %>
             <div class="node">
               <div class="marker"></div>
