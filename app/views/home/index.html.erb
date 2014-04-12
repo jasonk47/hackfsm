@@ -4,8 +4,9 @@
   <div class="col-md-4 col-md-offset-2">
     <h1 id="welcome-text">The Free Speech Movement Archive</h1>
     <p id="welcome-button">
-      <button class="btn btn-primary btn-lg">Explore Archive</button>
-      <button class="btn btn-lg">Advanced View</button>
+      <%= link_to "Explore Timeline", timeline_path, 
+          class: "btn btn-primary btn-lg" %>
+      <%= link_to "Search", timeline_path, class: "btn btn-primary btn-lg" %>
     </p>
   </div>
 </div>
