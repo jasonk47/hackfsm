@@ -73,8 +73,10 @@ Timeline
          <%   next
           end
         %>
-        <% @timeline_info[[y, m]].each do |day, docs| %>
+        <% (1..31).each do |day| %>
+          <% next if @timeline_info[[y, m]][day].nil? %>
           <% next if day.nil? %>
+          <% docs = @timeline_info[[y, m]][day] %>
           <% date_obj = Date.new(y, m, day) %>
           <% summary = Summary.where(date: date_obj) %>
           <div class="date"><%= date_obj.strftime("%B %-d, %Y") %></div>
